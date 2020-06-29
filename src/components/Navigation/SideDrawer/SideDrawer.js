@@ -3,11 +3,18 @@ import React from 'react';
 import classes from './SideDrawer.module.css';
 import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
+import BackDrop from '../../UI/BackDrop/BackDrop';
+import Aux from '../../../hoc/Auxillary';
 
 const sideDrawer = (props) => {
-    //...
+    let attachedclasses = [classes.SideDrawer, classes.Close];
+    if (props.open) {
+        attachedclasses = [classes.SideDrawer, classes.Open]
+    }
     return (
-        <div className={classes.SideDrawer}>
+        <Aux>
+        <BackDrop show={props.open} clicked={props.closed}/>
+        <div className={attachedclasses.join(' ')}>
             <div className={classes.Logo}>
                 <Logo />
             </div>
@@ -15,6 +22,7 @@ const sideDrawer = (props) => {
                 <NavigationItems />
             </nav>
         </div>
+        </Aux>
     );
 };
 
