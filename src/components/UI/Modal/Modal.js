@@ -5,14 +5,13 @@ import Aux from "../../../hoc/Auxillary/Auxillary";
 import BackDrop from "../BackDrop/BackDrop";
 
 class Modal extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.show !== this.props.show;
+  }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.show !== this.props.show;     
-    }
-
-    componentDidUpdate() {
-        console.log('[Modal] willUpdate');
-    }
+  componentDidUpdate() {
+    console.log("[Modal] willUpdate");
+  }
 
   render() {
     return (
