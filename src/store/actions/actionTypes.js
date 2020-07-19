@@ -1,3 +1,5 @@
+// actionTypes are used so that the developer will get an error if they make a typo
+// without setting actionTypes you wont get an error & will have manually find the typo
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const REMOVE_INGREDIENT = 'REMOVE_INGREDIENT';
 export const SET_INGREDIENTS = 'SET_INGREDIENTS';

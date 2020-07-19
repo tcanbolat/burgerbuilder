@@ -1,5 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../utility";
+import { updateObject } from "../utility"; // helper funtion to update state immutably
 
 const initialState = {
   orders: [],
@@ -43,6 +43,7 @@ const fetchOrdersFail = (state, action) => {
   return updateObject(state, { loading: false });
 };
 
+// moving the logic outside of the switch case statement makes the reducer leaner & easier to understand.
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.PURCHASE_INIT: return purchaseInit(state, action);

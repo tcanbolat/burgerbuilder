@@ -23,7 +23,7 @@ const addIngredient = (state, action) => {
     ingredients: updatedIngredients,
     totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
   };
-  return updateObject(state, updatedState);
+  return updateObject(state, updatedState); // updateObject() is a helper function used to update the state without mutating it.
 };
 
 const removeIngredient = (state, action) => {
@@ -52,6 +52,7 @@ const fetchIngredientsFailed = (state, action) => {
   });
 };
 
+// moving the logic outside of the switch case statement makes the reducer leaner & easier to understand.
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT: return addIngredient(state, action);

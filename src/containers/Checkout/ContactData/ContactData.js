@@ -11,7 +11,7 @@ import * as actions from "../../../store/actions/index";
 
 class ContactData extends Component {
   state = {
-    orderForm: {
+    orderForm: { // local form state 
       name: {
         elementType: "input",
         elementConfig: {
@@ -205,7 +205,8 @@ class ContactData extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+// global redux state
+const mapStateToProps = (state) => { 
   return {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
