@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
+import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Auth.module.css";
 import * as actions from "../../store/actions/index";
-import { connect } from "react-redux";
 
 class Auth extends Component {
   state = {
@@ -110,6 +111,7 @@ class Auth extends Component {
         config: this.state.controls[key],
       });
     }
+
     let form = formElementsArray.map((formElement) => (
       <Input
         key={formElement.id}
@@ -123,8 +125,34 @@ class Auth extends Component {
       />
     ));
 
+    if (this.props.loading) {
+      form = <Spinner />;
+    }
+
+    let errorMessage = null;
+
+    if (this.props.error) {
+      switch (this.props.error.message) {
+        case "EMAIL_NOT_FOUND":
+          errorMessage = <p>Email Not Found</p>;
+          break;
+        case "INVALID_PASSWORD":
+          errorMessage = <p>Invalid Password</p>;
+          break;
+        case "USER_DISABLED":
+          errorMessage = <p>User has been Disabled</p>;
+          break;
+        case "EMAIL_EXISTS":
+          errorMessage = <p>Email Already Exists</p>;
+          break;
+        default:
+          return <p>Something went Wrong</p>;
+      }
+    }
+
     return (
       <div className={classes.AuthData}>
+        <div className={classes.AuthError}>{errorMessage}</div>
         <form onSubmit={this.submitHandler}>
           {form}
           <Button btnType="Success">SUBMIT</Button>
@@ -137,6 +165,13 @@ class Auth extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+  };
+};
+
 const mapDispacthToProps = (dispatch) => {
   return {
     onAuth: (email, password, isSignUp) =>
@@ -144,4 +179,4 @@ const mapDispacthToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispacthToProps)(Auth);
+export default connect(mapStateToProps, mapDispacthToProps)(Auth);
