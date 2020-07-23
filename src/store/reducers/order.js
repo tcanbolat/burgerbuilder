@@ -1,5 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../utility"; // helper funtion to update state immutably
+import { updateObject } from "../../shared/utility"; // helper funtion to update state immutably
 
 const initialState = {
   orders: [],
