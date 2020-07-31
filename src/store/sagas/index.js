@@ -1,4 +1,4 @@
-import { takeEvery } from "redux-saga/effects";
+import { takeEvery, takeLatest } from "redux-saga/effects";
 
 import * as actionTypes from "../actions/actionTypes";
 import {
@@ -22,6 +22,7 @@ export function* watchBurgerBuilder() {
 }
 
 export function* watchOrder() {
-  yield takeEvery(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
+    // takeLatest will only execute the latest call, incase the user clicks the order button twice
+  yield takeLatest(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
   yield takeEvery(actionTypes.FETCH_ORDERS, fetchOrdersSaga);
 }

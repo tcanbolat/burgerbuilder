@@ -1,11 +1,16 @@
-import { put, delay } from "redux-saga/effects";
+import { put, delay, call } from "redux-saga/effects";
 import * as actions from "../actions/index";
 import axios from "axios";
 
 export function* logoutSaga(action) {
-  yield localStorage.removeItem("token");
-  yield localStorage.removeItem("expirationDate");
-  yield localStorage.removeItem("userId");
+    // using call makes the generator more testable by allowing you to mock the code when running tests instead of executing it.
+    // you can use call anywhere you an object to call something, including axios calls.
+    yield call([localStorage, 'removeItem'], "token");
+    yield call([localStorage, 'removeItem'], "expirationDate");
+    yield call([localStorage, 'removeItem'], "userId");
+//   yield localStorage.removeItem("token");
+//   yield localStorage.removeItem("expirationDate");
+//   yield localStorage.removeItem("userId");
   yield put(actions.logoutSucceed());
 }
 
