@@ -8,48 +8,47 @@ import classes from "./Auth.module.css";
 import * as actions from "../../store/actions/index";
 import { updateObject, checkValidity } from "../../shared/utility";
 
-const Auth = props => {
-  const {buildingBurger, authRedirectPath, onSetAuthRedirectPath} = props;
-  
+const Auth = (props) => {
   const [controls, setControls] = useState({
-      email: {
-        elementType: "input",
-        elementConfig: {
-          type: "email",
-          placeholder: "Email Address",
-        },
-        value: "",
-        validation: {
-          required: true,
-          isEmail: true,
-        },
-        valid: false,
-        touched: false,
+    email: {
+      elementType: "input",
+      elementConfig: {
+        type: "email",
+        placeholder: "Email Address",
       },
-      password: {
-        elementType: "input",
-        elementConfig: {
-          type: "password",
-          placeholder: "Password",
-        },
-        value: "",
-        validation: {
-          required: true,
-          minLength: 6,
-        },
-        valid: false,
-        touched: false,
+      value: "",
+      validation: {
+        required: true,
+        isEmail: true,
       },
-    });
+      valid: false,
+      touched: false,
+    },
+    password: {
+      elementType: "input",
+      elementConfig: {
+        type: "password",
+        placeholder: "Password",
+      },
+      value: "",
+      validation: {
+        required: true,
+        minLength: 6,
+      },
+      valid: false,
+      touched: false,
+    },
+  });
 
-    const [isSignUp, setIsSignUp] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(true);
 
-    useEffect(() => {
-      if (!props.buildingBurger && props.authRedirectPath !== "/") {
-        props.onSetAuthRedirectPath();
-      }
-    }, [])
+  const { buildingBurger, authRedirectPath, onSetAuthRedirectPath } = props;
 
+  useEffect(() => {
+    if (!buildingBurger && authRedirectPath !== "/") {
+      onSetAuthRedirectPath();
+    }
+  }, [onSetAuthRedirectPath, buildingBurger, authRedirectPath]);
 
   const inputChangedHandler = (event, controlName) => {
     const updatedControls = updateObject(controls, {
@@ -62,88 +61,84 @@ const Auth = props => {
         touched: true,
       }),
     });
-    setControls(updatedControls)
+    setControls(updatedControls);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onAuth(
-      controls.email.value,
-      controls.password.value,
-      isSignUp
-    );
+    props.onAuth(controls.email.value, controls.password.value, isSignUp);
   };
 
   const switchAuthModeHandler = () => {
-    setIsSignUp(!isSignUp)
+    setIsSignUp(!isSignUp);
   };
 
-    const formElementsArray = [];
-    for (let key in controls) {
-      formElementsArray.push({
-        id: key,
-        config: controls[key],
-      });
-    }
-
-    let form = formElementsArray.map((formElement) => (
-      <Input
-        key={formElement.id}
-        elementType={formElement.config.elementType}
-        elementConfig={formElement.config.elementConfig}
-        value={formElement.config.value}
-        invalid={!formElement.config.valid}
-        shouldValidate={formElement.config.validation}
-        touched={formElement.config.touched}
-        changed={(event) => inputChangedHandler(event, formElement.id)}
-      />
-    ));
-
-    if (props.loading) {
-      form = <Spinner />;
-    }
-
-    let errorMessage = null;
-
-    if (props.error) {
-      switch (props.error.message) {
-        case "EMAIL_NOT_FOUND":
-          errorMessage = <strong>Email Not Found</strong>;
-          break;
-        case "INVALID_PASSWORD":
-          errorMessage = <strong>Invalid Password</strong>;
-          break;
-        case "USER_DISABLED":
-          errorMessage = <strong>User has been Disabled</strong>;
-          break;
-        case "EMAIL_EXISTS":
-          errorMessage = <strong>Email Already Exists</strong>;
-          break;
-        default:
-          return <strong>Something went Wrong</strong>;
-      }
-    }
-
-    let authRedirect = null;
-
-    if (props.isAuthenticated) {
-      authRedirect = <Redirect to={props.authRedirectPath} />;
-    }
-
-    return (
-      <div className={classes.AuthData}>
-        {authRedirect}
-        <div className={classes.AuthError}>{errorMessage}</div>
-        <form onSubmit={submitHandler}>
-          {form}
-          <Button btnType="Success">SUBMIT</Button>
-        </form>
-        <Button clicked={switchAuthModeHandler} btnType="Danger">
-          GO TO {isSignUp ? "SIGN IN" : "SIGN UP"}
-        </Button>
-      </div>
-    );
+  const formElementsArray = [];
+  for (let key in controls) {
+    formElementsArray.push({
+      id: key,
+      config: controls[key],
+    });
   }
+
+  let form = formElementsArray.map((formElement) => (
+    <Input
+      key={formElement.id}
+      elementType={formElement.config.elementType}
+      elementConfig={formElement.config.elementConfig}
+      value={formElement.config.value}
+      invalid={!formElement.config.valid}
+      shouldValidate={formElement.config.validation}
+      touched={formElement.config.touched}
+      changed={(event) => inputChangedHandler(event, formElement.id)}
+    />
+  ));
+
+  if (props.loading) {
+    form = <Spinner />;
+  }
+
+  let errorMessage = null;
+
+  if (props.error) {
+    switch (props.error.message) {
+      case "EMAIL_NOT_FOUND":
+        errorMessage = <strong>Email Not Found</strong>;
+        break;
+      case "INVALID_PASSWORD":
+        errorMessage = <strong>Invalid Password</strong>;
+        break;
+      case "USER_DISABLED":
+        errorMessage = <strong>User has been Disabled</strong>;
+        break;
+      case "EMAIL_EXISTS":
+        errorMessage = <strong>Email Already Exists</strong>;
+        break;
+      default:
+        return <strong>Something went Wrong</strong>;
+    }
+  }
+
+  let authRedirect = null;
+
+  if (props.isAuthenticated) {
+    authRedirect = <Redirect to={props.authRedirectPath} />;
+  }
+
+  return (
+    <div className={classes.AuthData}>
+      {authRedirect}
+      <div className={classes.AuthError}>{errorMessage}</div>
+      <form onSubmit={submitHandler}>
+        {form}
+        <Button btnType="Success">SUBMIT</Button>
+      </form>
+      <Button clicked={switchAuthModeHandler} btnType="Danger">
+        GO TO {isSignUp ? "SIGN IN" : "SIGN UP"}
+      </Button>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -159,7 +154,7 @@ const mapDispacthToProps = (dispatch) => {
   return {
     onAuth: (email, password, isSignUp) =>
       dispatch(actions.auth(email, password, isSignUp)),
-        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/")),
+    onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath("/")),
   };
 };
 
