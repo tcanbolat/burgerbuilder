@@ -1,68 +1,64 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">Burger Builder</h1>
 
-## Available Scripts
+<p align="center">Redux Saga  ----  React ----  Firebase REST API</p>
 
-In the project directory, you can run:
+<p align="center" >
+    <img width="120px" src="https://miro.medium.com/max/468/1*zcK3vvoVjsqkqB0oja8RWw.png" alt="redux saga">
+    <img width="150px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/200px-React-icon.svg.png" alt="React">
+    <img width="100px" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Touchicon-180.png" alt="firebase">
+</p>
 
-### `npm start`
+<h4 align="center">Food ordering app. dynamically create your burger and checkout your order.</h4>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<h4 align="center"><a href="https://react-burger-builder-6bbb5.web.app/">... go ahead, order a burger! ...</a></h4>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+___
+___
 
-### `npm test`
+<h4 align="center">Dependencies...</h4>
+  
+```javascript  
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    // FRONT-END {Package.json}                          // BACK-END {.firbase.json}
+    "axios": "^0.19.2",                                  "Firebase Rest API database"
+    "enzyme": "^3.11.0",                                    
+    "enzyme-adapter-react-16": "^1.15.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "react-test-renderer": "^16.13.1",
+    "redux": "^4.0.5",
+    "redux-saga": "^1.1.3",
+```
 
-### `npm run build`
+___
+___
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+<h5 align="center">Highlights</h5>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<p>the burger builder uses Redux Saga for state management, dispatching actions to wherever needed in the app. The state management is in the store folder that is broken down into actions, reducers, and sagas. This method of state management is the practiced by most React dev teams.</p>
+<p>Custom http hook that can be used for any axios call, it takes in many parameters and send the request to firebase </p>
+<p>mobile first app, adaptible to any screen size.</p>
+<p>Optimized with React memo and React callback as well as lazy loading of components/pages</p>
 
-### `npm run eject`
+___
+___
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<h5 align="center">Instructions</h5>
+<p>install dependencies with npm install</p>
+<p>Create a firebase realtime database account<p>
+<p>in your root folder run firbase init, select hosting, and follow the instructions.<p>
+<p>change the urls in the app files to your firebase url</p>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+___
+___
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<h5 align="center">Demo</h5>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+<p align="center">
+<img src="readme-assets/burger-builder-demo.gif" />
+<p/>
